@@ -8,6 +8,12 @@ public class MonthlyReport {
     public ArrayList<Transact> transacts = new ArrayList<>();
     public void loadFile(String month, String path) {
         String content = readFileContents(path);
+        if (content == null) {
+            System.out.println("Невозможно прочитать файл с отчётом за месяц " + month + ". Возможно файла нет в директории.");
+            return;
+        } else {
+            System.out.println("Успех! Прочитан файл за месяц " + month);
+        }
         String[] lines = content.split("\r?\n"); // получаем список строк файла
         for (int i = 1; i < lines.length; i++) {
             String line = lines[i]; // получаем строку вида: "Коньки,TRUE,50,2000"
@@ -51,7 +57,6 @@ public class MonthlyReport {
         try {
             return Files.readString(Path.of(path));
         } catch (IOException e) {
-            System.out.println("Невозможно прочитать файл с месячным отчётом. Возможно файл не находится в нужной директории.");
             return null;
         }
     }

@@ -8,6 +8,12 @@ public class YearlyReport {
     public ArrayList<Pivot> pivots = new ArrayList<>();
     public void loadFile(String path) {
         String content = readFileContents(path);
+        if (content == null) {
+            System.out.println("Невозможно прочитать файл с годовым отчётом. Возможно файла нет в директории.");
+            return;
+        } else {
+            System.out.println("Успех! Файл с годовым отчетом прочитан.");
+        }
         String[] lines = content.split("\r?\n"); // получаем список строк файла
         for (int i = 1; i < lines.length; i++) {
             String line = lines[i]; // получаем строку вида: "01,1593150,false"
@@ -52,7 +58,6 @@ public class YearlyReport {
         try {
             return Files.readString(Path.of(path));
         } catch (IOException e) {
-            System.out.println("Невозможно прочитать файл с месячным отчётом. Возможно файл не находится в нужной директории.");
             return null;
         }
     }
